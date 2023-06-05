@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f09577e9-1d8e-4273-ba5e-f9774884793a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/elasticsearch/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/elasticsearch/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extensions/filebeat/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/extensions/filebeat/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extensions/fleet/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/extensions/fleet/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extensions/heartbeat/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/extensions/heartbeat/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extensions/metricbeat/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/extensions/metricbeat/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kibana/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/kibana/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logstash/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/logstash/Dockerfile" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2PPKWcwW4h9KUwGC4pJs1Jn1D6A" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/richi/Programming/SocialMedia/BackEnd/docker-elk&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f09577e9-1d8e-4273-ba5e-f9774884793a" name="Changes" comment="" />
+      <created>1683353309548</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683353309548</updated>
+      <workItem from="1683353310602" duration="21000" />
+      <workItem from="1684146818213" duration="38000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
