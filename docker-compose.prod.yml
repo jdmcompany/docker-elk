@@ -1,5 +1,15 @@
 version: '3.7'
 
+x-common-networks:
+  networks:
+    - &inner net_inner
+    - &gateway net_gateway
+    - &elk net_elk
+
+##############################################################################
+##############################################################################
+##############################################################################
+
 services:
 
   # The 'setup' service runs a one-off script which initializes users inside
@@ -40,7 +50,7 @@ services:
       MONITORING_INTERNAL_PASSWORD: ${MONITORING_INTERNAL_PASSWORD:-}
       BEATS_SYSTEM_PASSWORD: ${BEATS_SYSTEM_PASSWORD:-}
     networks:
-      - net_main
+      - *elk
     depends_on:
       - elasticsearch
 
@@ -69,7 +79,7 @@ services:
       discovery.type: single-node
     restart: unless-stopped
     networks:
-      - net_main
+      - *elk
 
   logstash:
     image: logstash:8.8.0
@@ -93,7 +103,9 @@ services:
       - elasticsearch
     restart: unless-stopped
     networks:
-      - net_main
+      - *elk
+      - *gateway
+      - *inner
 
   kibana:
     image: kibana:8.8.0
@@ -112,11 +124,16 @@ services:
       - elasticsearch
     restart: unless-stopped
     networks:
-      - net_main
+      - *elk
 
 volumes:
   elasticsearch:
 
 networks:
-  net_main:
+  net_inner:
     external: true
+  net_gateway:
+    external: true
+  net_elk:
+    external: true
+

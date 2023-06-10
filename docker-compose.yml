@@ -17,12 +17,14 @@ services:
   # '--profile=setup' CLI flag to Compose commands, or "up" the service by name
   # such as 'docker compose up setup'.
   setup:
+    image: setup:8.8.0
+    container_name: setup
     profiles:
       - setup
     build:
       context: setup/
       args:
-        ELASTIC_VERSION: ${ELASTIC_VERSION}
+        ELASTIC_VERSION: 8.8.0
     init: true
     volumes:
       - ./setup/entrypoint.sh:/entrypoint.sh:ro,Z
@@ -38,21 +40,23 @@ services:
       MONITORING_INTERNAL_PASSWORD: ${MONITORING_INTERNAL_PASSWORD:-}
       BEATS_SYSTEM_PASSWORD: ${BEATS_SYSTEM_PASSWORD:-}
     networks:
-      - elk
+      - net_main
     depends_on:
       - elasticsearch
 
   elasticsearch:
+    image: elasticsearch:8.8.0
+    container_name: elasticsearch
     build:
       context: elasticsearch/
       args:
-        ELASTIC_VERSION: ${ELASTIC_VERSION}
+        ELASTIC_VERSION: 8.8.0
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
       - elasticsearch:/usr/share/elasticsearch/data:Z
     ports:
-      - 9200:9200
-      - 9300:9300
+      - "9200:9200" # Elasticsearch HTTP
+#      - "9300:9300" # Elasticsearch TCP transport
     environment:
       node.name: elasticsearch
       ES_JAVA_OPTS: -Xms512m -Xmx512m
@@ -63,52 +67,56 @@ services:
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
-    networks:
-      - elk
     restart: unless-stopped
+    networks:
+      - net_main
 
   logstash:
+    image: logstash:8.8.0
+    container_name: logstash
     build:
       context: logstash/
       args:
-        ELASTIC_VERSION: ${ELASTIC_VERSION}
+        ELASTIC_VERSION: 8.8.0
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
-    ports:
-      - 5044:5044
-      - 50000:50000/tcp
-      - 50000:50000/udp
-      - 9600:9600
+#    ports:
+#      - "5044:5044" # Logstash Beats input
+#      - "50000:50000/tcp" # Logstash TCP input
+#      - "50000:50000/udp" # Logstash UDP input
+#      - "9600:9600" # Logstash monitoring API
     environment:
       LS_JAVA_OPTS: -Xms256m -Xmx256m
       LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
-    networks:
-      - elk
     depends_on:
       - elasticsearch
     restart: unless-stopped
+    networks:
+      - net_main
 
   kibana:
+    image: kibana:8.8.0
+    container_name: kibana
     build:
       context: kibana/
       args:
-        ELASTIC_VERSION: ${ELASTIC_VERSION}
+        ELASTIC_VERSION: 8.8.0
     volumes:
       - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
     ports:
-      - 5601:5601
+      - "5601:5601" # Kibana
     environment:
       KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
-    networks:
-      - elk
     depends_on:
       - elasticsearch
     restart: unless-stopped
-
-networks:
-  elk:
-    driver: bridge
+    networks:
+      - net_main
 
 volumes:
   elasticsearch:
+
+networks:
+  net_main:
+    external: true
